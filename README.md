@@ -1,6 +1,4 @@
-# RestApi-SubstitutionsImporter
-
-## WebCon.ImportSubstitutionsApplication ##
+﻿## WebCon.ImportSubstitutionsApplication ##
 **WebCon.ImportSubstitutionsApplication** is an application used to import substitutions from an external database source to WEBCON BPS in the following steps:
 - Import substitutions from an external database;
 - Import substitutions from WEBCON BPS;

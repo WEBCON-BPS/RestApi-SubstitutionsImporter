@@ -201,7 +201,7 @@
     <Compile Include="Models\Substitution\PersonInfo.cs" />
     <Compile Include="Models\Substitution\ProcessInfo.cs" />
     <Compile Include="Models\Substitution\Substitution.cs" />
-    <Compile Include="Models\BearerToken.cs" />
+    <Compile Include="Models\Token.cs" />
     <Compile Include="Models\Substitution\SubstitutionsCollection.cs" />
     <Compile Include="ImportSubstitutionsApplication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -209,6 +209,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

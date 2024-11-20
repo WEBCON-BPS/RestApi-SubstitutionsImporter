@@ -1,7 +1,7 @@
 ﻿namespace WebCon.ImportSubstitutionsApplication.Models
 {
-    public class BearerToken
+    public struct Token
     {
-        public string Token { get; set; }
+        public string access_token { get; set; }
     }
 }

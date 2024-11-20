@@ -5,6 +5,7 @@ using System;
 using System.Net.Http;
 using System.Text;
 using System.Net.Http.Headers;
+using System.Collections.Generic;
 
 namespace WebCon.ImportSubstitutionsApplication.Managers
 {
@@ -12,7 +13,7 @@ namespace WebCon.ImportSubstitutionsApplication.Managers
     {
         private readonly IConfigurationSettings _configurationSettings;
         private readonly HttpClient _client;
-        private const string AuthorizationTokenEndpoint = "api/login";
+        private const string AuthorizationTokenEndpoint = "api/oauth2/token";
 
         public RestClient(IConfigurationSettings configurationSettings)
         {
@@ -55,14 +56,14 @@ namespace WebCon.ImportSubstitutionsApplication.Managers
 
         private string GetToken()
         {
-            var loginData = new
+            var parms = new Dictionary<string, string>
             {
-                _configurationSettings.ClientId,
-                _configurationSettings.ClientSecret,
+                { "client_id", _configurationSettings.ClientId },
+                { "client_secret", _configurationSettings.ClientSecret},
+                { "grant_type", "client_credentials" }
             };
-
-            var authData = new StringContent(JsonConvert.SerializeObject(loginData), Encoding.UTF8, "application/json");
-            var response = _client.PostAsync(AuthorizationTokenEndpoint, authData).Result;
+                
+            var response = _client.PostAsync(AuthorizationTokenEndpoint, new FormUrlEncodedContent(parms)).Result;
             var responseContent = response.Content?.ReadAsStringAsync().Result;
 
             if (!response.IsSuccessStatusCode)
@@ -70,7 +71,7 @@ namespace WebCon.ImportSubstitutionsApplication.Managers
                 throw new HttpRequestException($"Cannot get access token. Retrieved content {responseContent} with status code {response.StatusCode}.");
             }
 
-            return JsonConvert.DeserializeObject<BearerToken>(responseContent)?.Token;
+            return JsonConvert.DeserializeObject<Token>(responseContent).access_token;
         }
     }
 }
